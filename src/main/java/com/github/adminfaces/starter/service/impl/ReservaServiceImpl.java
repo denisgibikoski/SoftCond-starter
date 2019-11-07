@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.Usuario;
 import com.github.adminfaces.starter.model.enums.StatusCadastro;
@@ -29,9 +30,9 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public void remover(Reserva reserva) {
-		RestricaoHorario.permite(reserva.getDataFinal());
-		reservaRepository.delete(reserva);
+	public void remover(Reserva reserva)throws NegocioException {
+			RestricaoHorario.permite(reserva.getDataFinal());
+			reservaRepository.delete(reserva);
 	}
 
 	@Override

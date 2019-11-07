@@ -19,6 +19,13 @@
 		<adm:breadcrumb title="Cadastro Eventos" />
 		<h:form id="frm" styleClass="form-principal">
 
+			<p:growl showDetail="true" life="3000" severity="info">
+				<p:autoUpdate />
+			</p:growl>
+			<p:growl showDetail="true" sticky="true" severity="warn,error,fatal">
+				<p:autoUpdate />
+			</p:growl>
+			
 			<p:focus context="@form" />
 			<p:panel styleClass="box-primary card">
 
@@ -154,7 +161,7 @@
 								</p:signature>
 
 								<div style="margin: 20px 0">
-									<p:commandButton value="Clear" icon="pi pi-times" type="button"
+									<p:commandButton value="Clear" disabled="#{cadastroEventoBean.reserva.codigo != null}" type="button"
 										style="width: 100px; height:40px; text-align: center"
 										onclick="PF('sig').clear()" />
 								</div>
@@ -163,11 +170,6 @@
 						</p:panelGrid>
 
 					</div>
-
-
-
-
-
 
 				</p:fieldset>
 

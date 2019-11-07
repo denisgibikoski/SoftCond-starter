@@ -36,13 +36,18 @@ public class ListaEventosBean implements Serializable {
 	}
 
 	public void excluir(Reserva reserva) {
-		if (reserva.getStatusReserva() == StatusReserva.CONCLUIDO || usuarioSistema.getUsuario().equals(reserva.getUsuario())) {
-			service.remover(reserva);
-			FacesUtil.addInfoMessage("Reserva excluído com sucesso!");
-			consultar(usuarioSistema);
-		} else {
-			FacesUtil.addErrorMessage("O Status da reserva não permite a exclução!");
+		try {
+			if (reserva.getStatusReserva() == StatusReserva.CONCLUIDO || usuarioSistema.getUsuario().equals(reserva.getUsuario())) {
+				service.remover(reserva);
+				FacesUtil.addInfoMessage("Reserva excluído com sucesso!");
+				consultar(usuarioSistema);
+			} else {
+				FacesUtil.addErrorMessage("O Status da reserva não permite a exclução!");
+			}
+		} catch (Exception e) {
+			FacesUtil.addErrorMessage(e.getMessage());
 		}
+		
 	}
 
 	public void salvarEvento(Reserva reserva) {

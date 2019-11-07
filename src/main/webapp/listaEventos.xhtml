@@ -14,10 +14,33 @@
 		<adm:breadcrumb title="Eventos" />
 		<h:form id="frm" styleClass="form-principal">
 
+			<p:growl showDetail="true" life="3000" severity="info">
+				<p:autoUpdate />
+			</p:growl>
+			<p:growl showDetail="true" sticky="true" severity="warn,error,fatal">
+				<p:autoUpdate />
+			</p:growl>
+			
+			<p:messages id="messages" autoUpdate="true" closable="true" />
 
 			<p:fieldset class="grupo-geral">
 
-				<p:messages id="msg" closable="true" autoUpdate="true" />
+				<div id="main-buttons" class="hidden-sm hidden-xs">
+
+					<p:spacer width="5" />
+
+					<p:spacer width="5" />
+
+					<p:spacer width="5" />
+
+					<p:commandButton value="Novo Evento" immediate="true"
+						styleClass="btn-primary"
+						rendered="#{homeBean.reserva.usuario.moradia.statusUnidadeMoradia == 'ATIVO'}"
+						action="#{homeBean.novoEvento}" process="@this"
+						icon="fa fas fa-plus-circle" />
+				</div>
+
+				<p:separator />
 
 				<p:dataTable value="#{listaEventosBean.todosEventos}" var="reserva"
 					emptyMessage="Nenhum cadastrado." rows="15" paginator="true"
@@ -37,7 +60,7 @@
 							class="btn btn-danger" process="@this"
 							rendered="#{reserva.statusReserva != 'CONCLUIDO'}"
 							disabled="#{reserva.statusReserva == 'CONCLUIDO'}"
-							update=":frm:usuarios-table :frm:msg"
+							update=":frm:usuarios-table "
 							action="#{listaEventosBean.excluir(reserva)}">
 						</p:commandButton>
 
@@ -74,8 +97,8 @@
 
 					<p:column headerText="Status"
 						style="text-align: center; width: 100px" exportable="false">
-						<p:inputText rendered="#{sessionMB.sindico != 'SINDICO'}" readonly="true"
-							value="#{reserva.statusReserva.descricao}" />
+						<p:inputText rendered="#{sessionMB.sindico != 'SINDICO'}"
+							readonly="true" value="#{reserva.statusReserva.descricao}" />
 						<p:selectOneMenu id="car" value="#{reserva.statusReserva}"
 							rendered="#{sessionMB.sindico == 'SINDICO'}"
 							disabled="#{reserva.statusReserva == 'CONCLUIDO'}">

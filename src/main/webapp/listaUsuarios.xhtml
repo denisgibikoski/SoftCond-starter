@@ -16,6 +16,14 @@
 		<adm:breadcrumb title="Usuarios" />
 		<h:form id="frm" styleClass="form-principal">
 
+			<p:growl showDetail="true" life="3000" severity="info">
+				<p:autoUpdate />
+			</p:growl>
+			<p:growl showDetail="true" sticky="true" severity="warn,error,fatal">
+				<p:autoUpdate />
+			</p:growl>
+			
+			<p:messages id="messages" autoUpdate="true" closable="true" />
 
 			<p:fieldset class="grupo-geral">
 				<div id="main-buttons" class="hidden-sm hidden-xs">
@@ -32,10 +40,7 @@
 						process="@this" icon="fa fas fa-plus-circle" />
 				</div>
 
-
 				<p:separator />
-
-
 
 				<p:dataTable value="#{listaUsuariosBean.todosusuarios}"
 					var="usuario" emptyMessage="Nenhum usuário cadastrado." rows="15"

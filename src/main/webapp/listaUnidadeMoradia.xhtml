@@ -15,10 +15,17 @@
 
 		<h:form id="frm" styleClass="form-principal">
 
-			<p:growl id="growl" life="2000" />
+			<p:growl showDetail="true" life="3000" severity="info">
+				<p:autoUpdate />
+			</p:growl>
+			<p:growl showDetail="true" sticky="true" severity="warn,error,fatal">
+				<p:autoUpdate />
+			</p:growl>
+
+			<p:messages id="messages" autoUpdate="true" closable="true" />
 
 			<p:fieldset class="grupo-geral">
-				
+
 				<p:dataTable value="#{listaMoradiaBean.listUnidadeMoradia}"
 					var="unidade" emptyMessage="Nenhuma unidade cadastrada." rows="15"
 					paginator="true" paginatorPosition="bottom"
@@ -29,7 +36,7 @@
 						exportable="false" headerText="Opções">
 
 						<p:commandButton icon="fa far fa-trash" title="Excluir"
-							class="btn btn-danger" update=":frm:unidades-table :frm:growl"
+							class="btn btn-danger" update=":frm:unidades-table "
 							actionListener="#{listaMoradiaBean.excluir(unidade)}">
 						</p:commandButton>
 

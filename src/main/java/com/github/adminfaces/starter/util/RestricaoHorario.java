@@ -28,7 +28,7 @@ public class RestricaoHorario implements Serializable {
 		if (hoje <= restricao) {
 			return true;
 		} else {
-			throw new NegocioException("Não esta de acordo com o termo assinado");
+			throw new NegocioException("Não esta de acordo com o termo assinado!! \n Esta fora do prazo de 72horas !!");
 		}
 
 	}
