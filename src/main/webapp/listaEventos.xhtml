@@ -35,7 +35,8 @@
 
 						<p:commandButton icon="fa far fa-trash" title="Excluir"
 							class="btn btn-danger" process="@this"
-							disabled="#{reserva.statusReserva != 'CONCLUIDO'}"
+							rendered="#{reserva.statusReserva != 'CONCLUIDO'}"
+							disabled="#{reserva.statusReserva == 'CONCLUIDO'}"
 							update=":frm:usuarios-table :frm:msg"
 							action="#{listaEventosBean.excluir(reserva)}">
 						</p:commandButton>

@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AppUserDetailsService userDetailsService;
-
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -23,11 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
 
+	}
+	   
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
+		
 		// form login
 		http.headers().frameOptions().sameOrigin()
 		.and()
@@ -45,7 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.logout()
 				.logoutSuccessUrl("/login.xhtml")
-				.logoutUrl("/j_spring_security_logout");
+				.logoutUrl("/j_spring_security_logout")
+				.invalidateHttpSession(true).deleteCookies("JSESSIONID");
+				 
 
 	}
 

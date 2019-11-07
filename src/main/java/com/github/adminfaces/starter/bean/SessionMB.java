@@ -22,11 +22,13 @@ public class SessionMB implements Serializable {
 	
 	private String sindico;
 	
+	private UsuarioSistema usuarioSistema;
+	
 
 	@PostConstruct
 	public void init() {
 		currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-		UsuarioSistema usuarioSistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		usuarioSistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		statusUsuario = usuarioSistema.getUsuario().getMoradia().getStatusUnidadeMoradia().getDescricao();
 		sindico = usuarioSistema.getUsuario().getPermissao().toString();
 	}
@@ -53,5 +55,13 @@ public class SessionMB implements Serializable {
 
 	public void setSindico(String sindico) {
 		this.sindico = sindico;
+	}
+
+	public UsuarioSistema getUsuarioSistema() {
+		return usuarioSistema;
+	}
+
+	public void setUsuarioSistema(UsuarioSistema usuarioSistema) {
+		this.usuarioSistema = usuarioSistema;
 	}
 }

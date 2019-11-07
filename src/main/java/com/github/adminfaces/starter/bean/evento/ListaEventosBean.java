@@ -36,7 +36,7 @@ public class ListaEventosBean implements Serializable {
 	}
 
 	public void excluir(Reserva reserva) {
-		if (reserva.getStatusReserva() == StatusReserva.CONCLUIDO) {
+		if (reserva.getStatusReserva() == StatusReserva.CONCLUIDO || usuarioSistema.getUsuario().equals(reserva.getUsuario())) {
 			service.remover(reserva);
 			FacesUtil.addInfoMessage("Reserva excluído com sucesso!");
 			consultar(usuarioSistema);
