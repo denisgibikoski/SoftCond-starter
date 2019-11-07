@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.github.adminfaces.starter.model.Reserva;
+import com.github.adminfaces.starter.model.Usuario;
 
 @Service
 public interface ReservaService {
@@ -16,5 +17,7 @@ public interface ReservaService {
 	void salvar(Reserva reserva);
 
 	Reserva porId(Long id);
+
+	List<Reserva> evetosPorUsuario(Usuario usuario);
 		
 }

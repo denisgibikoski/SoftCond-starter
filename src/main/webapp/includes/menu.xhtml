@@ -8,13 +8,12 @@
 	<sec:authenticated>
 		<ul class="sidebar-menu tree" data-widget="tree">
 
-			<sec:authorize access="hasRole('SINDICO')">
-				<li><p:link outcome="/listaEventos"
-						onclick="clearBreadCrumbs()">
-						<i class="fa fa-calendar" aria-hidden="true"></i>
-						<span>Eventos</span>
-					</p:link></li>
 
+			<li><p:link outcome="/listaEventos" onclick="clearBreadCrumbs()">
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+					<span>Eventos</span>
+				</p:link></li>
+			<sec:authorize access="hasRole('SINDICO')">
 				<li><p:link outcome="/listaUsuarios"
 						onclick="clearBreadCrumbs()">
 						<i class="fa fa-male"></i>

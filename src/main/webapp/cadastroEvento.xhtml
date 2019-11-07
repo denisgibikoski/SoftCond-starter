@@ -97,7 +97,9 @@
 							<p:row id="descricaoEvento"
 								rendered="#{cadastroEventoBean.reserva.tipoevento == 'OUTROS'}">
 								<p:inputTextarea rows="6" cols="40"
-									value="#{cadastroEventoBean.reserva.descricao}" />
+									value="#{cadastroEventoBean.reserva.descricao}">
+									<p:ajax event="change" update="frm" process="@this" />
+								</p:inputTextarea>
 							</p:row>
 
 							<p:outputLabel value="Data Inicial : " for="dataIni" />
@@ -126,7 +128,7 @@
 							<p:inputMask mask="99" id="quantPessoas" required="true"
 								requiredMessage="Necessario Informar Quantidade Pessoas"
 								value="#{cadastroEventoBean.reserva.quantidadePessoal}">
-								<p:ajax event="blur" update="frm" process="@this" />
+								<p:ajax event="change" update="frm" process="@this" />
 							</p:inputMask>
 
 							<p:outputLabel />

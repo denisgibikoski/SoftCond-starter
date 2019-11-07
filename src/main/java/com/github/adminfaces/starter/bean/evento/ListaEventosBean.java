@@ -6,8 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.enums.StatusReserva;
+import com.github.adminfaces.starter.security.model.UsuarioSistema;
 import com.github.adminfaces.starter.service.EmailService;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.util.FacesUtil;
@@ -20,29 +23,30 @@ public class ListaEventosBean implements Serializable {
 
 	@Autowired
 	private ReservaService service;
-	
+
 	@Autowired
 	private EmailService emailService;
-	
+	private UsuarioSistema usuarioSistema;
 	private List<Reserva> todosEventos;
 
 	@PostConstruct
 	public void inicializar() {
-		consultar();
+		usuarioSistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		consultar(usuarioSistema);
 	}
 
 	public void excluir(Reserva reserva) {
 		if (reserva.getStatusReserva() == StatusReserva.CONCLUIDO) {
 			service.remover(reserva);
 			FacesUtil.addInfoMessage("Reserva excluído com sucesso!");
-			consultar();
+			consultar(usuarioSistema);
 		} else {
 			FacesUtil.addErrorMessage("O Status da reserva não permite a exclução!");
 		}
 	}
-	
+
 	public void salvarEvento(Reserva reserva) {
-		try {	
+		try {
 			service.salvar(reserva);
 			emailService.enviar(reserva);
 			FacesUtil.addInfoMessage("Reserva Atualizada com sucesso!!!");
@@ -51,13 +55,18 @@ public class ListaEventosBean implements Serializable {
 			FacesUtil.addFatalMessage(e.getMessage());
 		}
 	}
-	
+
 	public StatusReserva[] getStatusReserva() {
 		return StatusReserva.values();
 	}
 
-	public void consultar() {
-		setTodosEventos(service.todos());		
+	public void consultar(UsuarioSistema usuarioSistema) {
+		if (usuarioSistema.getUsuario().isSindico()) {
+			setTodosEventos(service.todos());
+		} else {
+			setTodosEventos(service.evetosPorUsuario(usuarioSistema.getUsuario()));
+		}
+
 	}
 
 	public List<Reserva> getTodosEventos() {

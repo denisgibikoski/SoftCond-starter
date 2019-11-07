@@ -8,6 +8,8 @@ import javax.inject.Named;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.github.adminfaces.starter.security.model.UsuarioSistema;
+
 @Named
 @ViewScoped
 public class SessionMB implements Serializable {
@@ -16,10 +18,14 @@ public class SessionMB implements Serializable {
 	
 	private String currentUser;
 	
+	private String statusUsuario;
+	
 
 	@PostConstruct
 	public void init() {
 		currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+		UsuarioSistema usuarioSistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		statusUsuario = usuarioSistema.getUsuario().getMoradia().getStatusUnidadeMoradia().getDescricao();
 	}
 
 	public String getCurrentUser() {
@@ -28,5 +34,13 @@ public class SessionMB implements Serializable {
 
 	public void setCurrentUser(String currentUser) {
 		this.currentUser = currentUser;
+	}
+
+	public String getStatusUsuario() {
+		return statusUsuario;
+	}
+
+	public void setStatusUsuario(String statusUsuario) {
+		this.statusUsuario = statusUsuario;
 	}
 }

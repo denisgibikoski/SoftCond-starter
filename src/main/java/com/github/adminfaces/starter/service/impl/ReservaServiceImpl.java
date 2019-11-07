@@ -43,7 +43,6 @@ public class ReservaServiceImpl implements ReservaService {
 		}
 		reserva.setUsuario(usuario);
 		reservaRepository.saveAndFlush(reserva);
-
 	}
 
 	private void verificaHorarioReserva(Reserva reserva) {
@@ -75,6 +74,11 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	public Reserva porId(Long id) {
 		return reservaRepository.findById(id).orElse(new Reserva());
+	}
+
+	@Override
+	public List<Reserva> evetosPorUsuario(Usuario usuario) {
+		return reservaRepository.findByUsuario(usuario);
 	}
 
 }

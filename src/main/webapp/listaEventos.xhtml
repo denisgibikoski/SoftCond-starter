@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui" template="#{layoutMB.template}">
 
 	<f:metadata>
-		<f:viewAction action="#{listaEventosBean.consultar}" />
+		<f:viewAction action="#{listaEventosBean.inicializar}" />
 	</f:metadata>
 
 	<ui:define name="title">Eventos</ui:define>
@@ -68,7 +68,7 @@
 
 					<p:column headerText="Descricao"
 						style="text-align: center; width: 100px" exportable="false">
-						<h:outputText value="#{reserva.descricao}" />
+						<h:outputText value="#{reserva.tipoevento.descricao}" />
 					</p:column>
 
 					<p:column headerText="Status"
