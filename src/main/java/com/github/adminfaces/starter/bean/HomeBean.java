@@ -50,7 +50,10 @@ public class HomeBean implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		try {
-			sistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+				sistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			}
+			
 			setHoje(new Date());
 			reservas = new DefaultScheduleModel();
 			reserva = new Reserva();
