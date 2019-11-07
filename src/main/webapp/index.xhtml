@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="#{layoutMB.template}" xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:define name="head-end">
+		<ui:param name="renderBreadCrumb" value="false" />
+	</ui:define>
+
+	<ui:define name="title">
+
+		<div id="main-buttons" class="hidden-sm hidden-xs">
+
+			<p:spacer width="5" />
+
+			<p:spacer width="5" />
+
+			<p:spacer width="5" />
+
+			<p:commandButton value="Novo Evento" immediate="true"
+				styleClass="btn-primary"
+				rendered="#{homeBean.reserva.usuario.moradia.statusUnidadeMoradia == 'ATIVO'}"
+				action="#{homeBean.novoEvento}" process="@this"
+				icon="fa fas fa-plus-circle" />
+		</div>
+
+
+		<p:separator />
+
+		<p:schedule value="#{homeBean.reservas}" locale="pt" view="month"
+			rightHeaderTemplate="" style="margin-top:15px" draggable="false"
+			styleClass="" widgetVar="myschedule" initialDate="#{homeBean.hoje}">
+
+			<!-- 			<p:ajax event="dateSelect" listener="#{homeBean.onDateSelect}"
+				update="eventDetails" oncomplete="PF('eventDialog').show();" /> -->
+
+			<p:ajax event="eventSelect" listener="#{homeBean.onEventSelect}"
+				update="eventDetails" oncomplete="PF('eventDialog').show();" />
+
+		</p:schedule>
+
+		<p:dialog widgetVar="eventDialog" header="Reserva " showEffect="clip"
+			hideEffect="clip" resizable="false" draggable="false"
+			minimizable="true" maximizable="true" appendTo="@(body)"
+			responsive="true" width="400" modal="true" styleClass="box-primary">
+
+			<h:form>
+
+				<p:panelGrid id="loginGrid" columns="2" cellpadding="5"
+					layout="grid" styleClass="no-border ui-fluid">
+
+					<p:outputLabel value="Nome do Usuario : " />
+					<p:inputText value="#{homeBean.reserva.usuario.nome}"
+						readonly="true" />
+
+					<p:outputLabel value="Unidade do Usuario : " />
+					<p:inputText value="#{homeBean.reserva.usuario.moradia.unidade}"
+						readonly="true" />
+
+					<p:outputLabel value="Data Inicial : " />
+					<p:inputText value="#{homeBean.reserva.dataInicial}"
+						rendered="#{homeBean.reserva.codigo != null}" readonly="true" />
+					<p:calendar value="#{homeBean.reserva.dataInicial}"
+						navigator="true" label="Data inicial" pattern="dd/MM/yyyy HH:mm"
+						rendered="#{homeBean.reserva.codigo == null}"
+						mindate="#{homeBean.hoje}" mask="true" locale="pt">
+						<p:ajax event="dateSelect" update="dataFinal" />
+					</p:calendar>
+
+					<p:outputLabel value="Data Final : " />
+					<p:inputText value="#{homeBean.reserva.dataFinal}"
+						rendered="#{homeBean.reserva.codigo != null}" readonly="true" />
+					<p:calendar id="dataFinal" value="#{homeBean.reserva.dataFinal}"
+						rendered="#{homeBean.reserva.codigo == null}" navigator="true"
+						mask="true" label="Data final"
+						mindate="#{homeBean.reserva.dataInicial}"
+						pattern="dd/MM/yyyy HH:mm" locale="pt" />
+
+
+					<p:outputLabel value="Tipo de Evento :" />
+					<p:inputText value="#{homeBean.reserva.tipoevento}"
+						rendered="#{homeBean.reserva.codigo != null}" readonly="true" />
+
+					<p:outputLabel value="Descrição do Evento :"
+						rendered="#{homeBean.habilitarDescricao()}" />
+					<p:inputTextarea rows="6" cols="40"
+						rendered="#{homeBean.habilitarDescricao()}"
+						value="#{homeBean.reserva.descricao}" />
+
+					<p:outputLabel value="Status :" />
+					<p:inputText value="#{homeBean.reserva.statusReserva}"
+						rendered="#{homeBean.reserva.codigo != null}" readonly="true" />
+					<p:selectOneMenu id="car" value="#{homeBean.reserva.statusReserva}"
+						rendered="#{homeBean.reserva.codigo == null}"
+						editable="#{homeBean.reserva.statusReserva != 'CONCLUIDO'}">
+						<f:selectItems value="#{homeBean.statusReservas}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Assinatura : " />
+					<p:signature style="width:400px;height:200px" widgetVar="sig"
+						readonly="#{homeBean.reserva.codigo != null}"
+						value="#{homeBean.reserva.assinatura}" guideline="true" />
+
+				</p:panelGrid>
+
+				<p:separator />
+
+				<p:commandButton id="cancelarButton" value="Excluir"
+					actionListener="#{homeBean.removerEvento}"
+					rendered="#{homeBean.podeRemoverEvento()}"
+					oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

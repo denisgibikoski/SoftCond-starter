@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+	<sec:authenticated>
+		<ul class="sidebar-menu tree" data-widget="tree">
+
+			<li><p:link outcome="/index" onclick="clearBreadCrumbs()">
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+					<span>Eventos</span>
+				</p:link></li>
+
+			<sec:authorize access="hasRole('SINDICO')">
+
+				<li><p:link outcome="/listaUsuarios"
+						onclick="clearBreadCrumbs()">
+						<i class="fa fa-male"></i>
+						<span>Usuarios</span>
+					</p:link></li>
+
+				<li><p:link outcome="/listaUnidadeMoradia"
+						onclick="clearBreadCrumbs()">
+						<i class="fa fa-home"></i>
+						<span>Moradias </span>
+					</p:link></li>
+
+
+			</sec:authorize>
+		</ul>
+	</sec:authenticated>
+</ui:composition>

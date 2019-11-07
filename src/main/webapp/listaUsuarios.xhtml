@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="#{layoutMB.template}">
+
+	<f:metadata>
+		<f:viewAction action="#{listaUsuariosBean.consultar}" />
+	</f:metadata>
+
+	<ui:define name="title">Usuarios</ui:define>
+	<ui:define name="body">
+		<adm:breadcrumb title="Usuarios" />
+		<h:form id="frm" styleClass="form-principal">
+
+
+			<p:fieldset class="grupo-geral">
+				<div id="main-buttons" class="hidden-sm hidden-xs">
+
+					<p:spacer width="5" />
+
+					<p:spacer width="5" />
+
+					<p:spacer width="5" />
+
+					<p:button value="Novo usuário" immediate="true"
+						styleClass="btn-primary" outcome="/cadastroUsuario"
+						rendered="#{homeBean.reserva.usuario.statusUsuario == 'ATIVO'}"
+						process="@this" icon="fa fas fa-plus-circle" />
+				</div>
+
+
+				<p:separator />
+
+
+
+				<p:dataTable value="#{listaUsuariosBean.todosusuarios}"
+					var="usuario" emptyMessage="Nenhum usuário cadastrado." rows="15"
+					paginator="true" paginatorPosition="bottom" styleClass="myTable"
+					style="margin-top: 10px" id="usuarios-table" reflow="true"
+					paginatorAlwaysVisible="true" rowKey="#{usuario.codigo}">
+
+					<p:column style="text-align: center; width: 100px"
+						exportable="false" headerText="Opções">
+
+						<p:button icon="fa far fa-pencil" title="Editar"
+							class="btn btn-info" outcome="cadastroUsuario">
+							<f:param name="usuario" value="#{usuario.codigo}" />
+						</p:button>
+
+						<p:commandButton icon="fa fa-trash" title="Excluir"
+							class="btn btn-danger" process="@this"
+							update=":frm:usuarios-table "
+							action="#{listaUsuariosBean.excluir(usuario)}">
+						</p:commandButton>
+
+					</p:column>
+
+					<p:column headerText="Nome" sortBy="#{usuario.nome}">
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+
+					<p:column headerText="Email" sortBy="#{usuario.email}">
+						<h:outputText value="#{usuario.email}" />
+					</p:column>
+
+					<p:column headerText="Status" sortBy="#{usuario.statusUsuario}">
+						<h:outputText value="#{usuario.statusUsuario}" />
+					</p:column>
+
+					<f:facet name="footer">
+									(#{listaUsuariosBean.todosusuarios.size()}) registros
+				    			</f:facet>
+				</p:dataTable>
+
+			</p:fieldset>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

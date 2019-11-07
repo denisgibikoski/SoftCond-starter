@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:adm="http://github.com/adminfaces"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="#{layoutMB.template}">
+
+	<f:metadata>
+		<f:viewParam name="codigo"
+			value="#{cadastroEventoBean.reserva.codigo}"
+			converter="javax.faces.Long"></f:viewParam>
+
+		<f:viewAction action="#{cadastroEventoBean.inicializar}" />
+	</f:metadata>
+
+	<ui:define name="title">Cadastro Eventos</ui:define>
+	<ui:define name="body">
+		<adm:breadcrumb title="Cadastro Eventos" />
+		<h:form id="frm" styleClass="form-principal">
+
+			<p:focus context="@form" />
+			<p:panel styleClass="box-primary card">
+
+				<div id="main-buttons" class="hidden-sm hidden-xs">
+
+					<p:commandButton id="salvar-button" value="Salvar"
+						action="#{cadastroEventoBean.novoEvento}"
+						actionListener="#{cadastroEventoBean.ativaTermo}" update="@form "
+						icon="fa fa-check" styleClass="btn-primary" />
+
+					<p:spacer width="5" rendered="#{cadastroEventoBean.isNew()}" />
+
+					<p:commandButton value="Limpar"
+						action="#{cadastroEventoBean.clear}" process="@this"
+						icon="fa fa-refresh" styleClass="btn-success" update="@form"
+						rendered="#{cadastroEventoBean.isNew()}" resetValues="true" />
+
+					<p:spacer width="5" rendered="#{not cadastroEventoBean.isNew()}" />
+
+					<p:commandButton value="Delete"
+						action="#{cadastroEventoBean.removerEvento}" process="@this"
+						update="@form" rendered="#{not cadastroEventoBean.isNew()}"
+						icon="fa fa-trash" styleClass="btn-danger">
+					</p:commandButton>
+
+					<p:spacer width="5" />
+
+					<p:commandButton value="Voltar" immediate="true"
+						styleClass="btn-default" action="/index?faces-redirect=true"
+						process="@this" icon="fa fa-reply" />
+				</div>
+
+
+				<p:separator />
+
+
+				<p:fieldset class="grupo-geral">
+
+					<h:panelGrid columns="2" styleClass="grid-titulo-pesquisa">
+						<div class="barra-vertical"></div>
+						<h:outputLabel
+							value="#{cadastroEventoBean.editando ? 'Edição de Evento': 'Novo Evento'}"
+							styleClass="titulo-pesquisa"></h:outputLabel>
+					</h:panelGrid>
+
+					<div id="campos" class="ui-fluid">
+
+						<p:panelGrid columns="2" layout="grid" style="margin-top: 20px"
+							styleClass="semBorda" id="usuarios-tipos"
+							columnClasses="ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="Nome do Usuario : " />
+							<p:inputText value="#{cadastroEventoBean.reserva.usuario.nome}"
+								readonly="true" />
+
+							<p:outputLabel value="Unidade do Usuario : " />
+							<p:inputText
+								value="#{cadastroEventoBean.reserva.usuario.moradia.unidade}"
+								readonly="true" />
+
+							<p:outputLabel value="Tipo Evento : " for="tipoEvento" />
+							<p:selectOneMenu id="tipoEvento" required="true"
+								requiredMessage="Necessario Tipo Evento"
+								value="#{cadastroEventoBean.reserva.tipoevento}">
+								<f:selectItem itemLabel="Selecione ..." noSelectionOption="true" />
+								<f:selectItems var="tipoEvento"
+									value="#{cadastroEventoBean.tipoEvento}"
+									itemLabel="#{tipoEvento.descricao}" itemValue="#{tipoEvento}" />
+								<p:ajax event="change" update="frm" process="@this" />
+							</p:selectOneMenu>
+
+							<p:row id="descricaoOutro"
+								rendered="#{cadastroEventoBean.reserva.tipoevento == 'OUTROS'}">
+								<p:outputLabel value="Descrição do Evento :" />
+							</p:row>
+							<p:row id="descricaoEvento"
+								rendered="#{cadastroEventoBean.reserva.tipoevento == 'OUTROS'}">
+								<p:inputTextarea rows="6" cols="40"
+									value="#{cadastroEventoBean.reserva.descricao}" />
+							</p:row>
+
+							<p:outputLabel value="Data Inicial : " for="dataIni" />
+							<p:calendar id="dataIni"
+								requiredMessage="Necessario ter Data Inicial"
+								value="#{cadastroEventoBean.reserva.dataInicial}"
+								required="true" navigator="true" label="Data inicial"
+								pattern="dd/MM/yyyy HH:mm" mindate="#{cadastroEventoBean.hoje}"
+								mask="true" locale="pt">
+
+								<p:ajax event="dateSelect" update="dataFin" process="@this" />
+							</p:calendar>
+
+							<p:outputLabel value="Data Final : " for="dataFin" />
+							<p:calendar id="dataFin" required="true"
+								requiredMessage="Necessario ter Data Final"
+								value="#{cadastroEventoBean.reserva.dataFinal}" navigator="true"
+								mask="true" label="Data final"
+								mindate="#{cadastroEventoBean.reserva.dataInicial}"
+								pattern="dd/MM/yyyy HH:mm" locale="pt">
+
+								<p:ajax event="dateSelect" update="dataFin" process="@this" />
+							</p:calendar>
+
+							<p:outputLabel value="Quantidade de Pessoas :" for="quantPessoas" />
+							<p:inputMask mask="99" id="quantPessoas" required="true"
+								requiredMessage="Necessario Informar Quantidade Pessoas"
+								value="#{cadastroEventoBean.reserva.quantidadePessoal}">
+								<p:ajax event="blur" update="frm" process="@this" />
+							</p:inputMask>
+
+							<p:outputLabel />
+							<p:row>
+
+								<p>
+									Eu
+									<p:commandLink value="aceito os termos" ajax="false"
+										immediate="true">
+										<p:fileDownload value="#{cadastroEventoBean.termoDeUso()}" />
+									</p:commandLink>
+									e condições:
+								</p>
+
+							</p:row>
+
+							<p:outputLabel value="Assinatura : " />
+							<p:row>
+								<p:signature style="width:400px;height:200px" widgetVar="sig"
+									value="#{cadastroEventoBean.reserva.assinatura}"
+									guideline="true">
+
+								</p:signature>
+
+								<div style="margin: 20px 0">
+									<p:commandButton value="Clear" icon="pi pi-times" type="button"
+										style="width: 100px; height:40px; text-align: center"
+										onclick="PF('sig').clear()" />
+								</div>
+							</p:row>
+
+						</p:panelGrid>
+
+					</div>
+
+
+
+
+
+
+				</p:fieldset>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

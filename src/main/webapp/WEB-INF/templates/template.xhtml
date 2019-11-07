@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/admin.xhtml">
+
+	<ui:define name="head">
+		<title>Soft Cond</title>
+		<link rel="shortcut icon" type="image/x-icon"
+			href="#{resource['favicon/favicon.ico']}" />
+		<link rel="shortcut icon" type="image/x-icon"
+			href="#{resource['favicon/favicon.ico']}" sizes="16x16" />
+		<link rel="shortcut icon" type="image/x-icon"
+			href="#{resource['favicon/favicon.ico']}" sizes="32x32" />
+		<link rel="shortcut icon" type="image/x-icon"
+			href="#{resource['favicon/favicon.ico']}" sizes="96x96" />
+		<link rel="manifest" href="manifest.json" />
+		<meta name="theme-color" content="#444" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<f:loadBundle var="msg" basename="starter" />
+		<h:outputStylesheet library="css" name="starter.css" />
+	</ui:define>
+
+	<ui:define name="logo">
+		<h:graphicImage library="images" name="EMPRESA-SALUDABLE-ex2.png" />
+	</ui:define>
+
+	<ui:define name="logo-mini">
+		<h:graphicImage library="images" name="746859-32x32.png" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="top-menu">
+		<ui:include src="/includes/top-bar.xhtml" />
+	</ui:define>
+
+
+</ui:composition>

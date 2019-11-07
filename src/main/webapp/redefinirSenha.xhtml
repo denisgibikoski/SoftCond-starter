@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title><ui:insert>Recuperação de senha</ui:insert></title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon.ico']}" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-144x144.png']}" sizes="144x144" />
+	<meta name="theme-color" content="#444" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<style type="text/css">
+/* below css hides growls in small screens and makes messages visible */
+@media ( max-width : 768px) {
+	body div.ui-growl {
+		display: none;
+	}
+	body div.ui-messages {
+		display: block;
+	}
+}
+
+/* below css hides messages in medium/big devices and makes growl visible in such devices */
+@media ( min-width : 769px) {
+	body div.ui-growl {
+		display: block;
+	}
+	body div.ui-messages {
+		display: none;
+	}
+}
+
+body {
+	overflow-y: hidden;
+}
+
+body.login-page {
+	background-color: transparent;
+}
+
+ html {
+                background: url(#{resource[ 'images:background.jpg' ]}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+</style>
+
+</h:head>
+<h:body styleClass="hold-transition login-page">
+	<div class="login-box">
+
+		<div class="box login-box-body">
+			<h:form prependId="false">
+				<div>
+					<p:growl showDetail="true" life="3000" severity="info">
+						<p:autoUpdate />
+					</p:growl>
+					<p:growl showDetail="true" sticky="true"
+						severity="warn,error,fatal">
+						<p:autoUpdate />
+					</p:growl>
+
+
+					<p:messages id="messages" autoUpdate="true" closable="true" />
+					<p>
+						<p:link outcome="index" title="Home">
+							<h:graphicImage value="/resources/img/logo.png" height="70"
+								width="300" />
+						</p:link>
+					</p>
+					<p>
+						<p:outputLabel value="E-mail para definir senha " />
+					</p>
+
+					<div class="md-form">
+						<p:inputText size="30" id="username" class="form-control"
+							value="#{redefinirSenhaBean.email}" />
+						<p:outputLabel for="username" value="E-mail" />
+					</div>
+
+					<p>
+						<p:linkButton href="/login.xhtml" value="Voltar para o login"
+							class="btn btn-info" icon="fa fa-mail-reply" />
+						<h:commandButton value="Redefinir Senha"
+							action="#{redefinirSenhaBean.redifinirSenha}"
+							styleClass="btn btn-primary" ajax="false" />
+					</p>
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+</h:body>
+</html>
