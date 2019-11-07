@@ -5,11 +5,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="#{layoutMB.template}">
 
-	<ui:define name="head-end">
-		<ui:param name="renderBreadCrumb" value="false" />
-	</ui:define>
+	<ui:define name="title"></ui:define>
+	<ui:define name="body">
 
-	<ui:define name="title">
+		<ui:define name="head-end">
+			<ui:param name="renderBreadCrumb" value="false" />
+		</ui:define>
+
+		<p:growl showDetail="true" life="3000" severity="info">
+			<p:autoUpdate />
+		</p:growl>
+		<p:growl showDetail="true" sticky="true" severity="warn,error,fatal">
+			<p:autoUpdate />
+		</p:growl>
 
 		<div id="main-buttons" class="hidden-sm hidden-xs">
 
@@ -105,5 +113,6 @@
 		</p:dialog>
 
 	</ui:define>
+
 
 </ui:composition>
