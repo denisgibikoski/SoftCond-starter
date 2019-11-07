@@ -24,7 +24,6 @@ import com.github.adminfaces.starter.security.Seguranca;
 import com.github.adminfaces.starter.security.model.UsuarioSistema;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.util.FacesUtil;
-import com.github.adminfaces.starter.util.RestricaoHorario;
 import com.github.adminfaces.starter.util.ScheduleUtil;
 
 @Named
@@ -107,7 +106,6 @@ public class HomeBean implements Serializable {
 
 	public void removerEvento(ActionEvent actionEvent) {
 		try {
-			RestricaoHorario.permite(reserva.getDataFinal());
 			service.remover(reserva);
 			reserva.setStatusReserva(StatusReserva.EXCUIDO);
 			publisher.publishEvent(reserva);

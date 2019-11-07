@@ -12,6 +12,7 @@ import com.github.adminfaces.starter.repository.ReservaRepository;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.service.UsuarioService;
 import com.github.adminfaces.starter.util.NegocioException;
+import com.github.adminfaces.starter.util.RestricaoHorario;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
@@ -29,6 +30,7 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public void remover(Reserva reserva) {
+		RestricaoHorario.permite(reserva.getDataFinal());
 		reservaRepository.delete(reserva);
 	}
 
