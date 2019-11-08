@@ -2,6 +2,7 @@ package com.github.adminfaces.starter.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -39,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/index.xhtml","/listaEventos.xhtml", "/cadastroEvento.xhtml").authenticated()
 				.antMatchers("/listaUsuarios.xhtml").hasAnyRole("SINDICO")
 				.antMatchers("/listaUnidadeMoradia.xhtml").hasAnyRole("SINDICO")
+				.anyRequest().authenticated()
 				.and()
 				.formLogin().loginPage("/login.xhtml")
 				.defaultSuccessUrl("/index.xhtml")
