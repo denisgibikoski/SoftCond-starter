@@ -12,9 +12,9 @@
 		<f:viewAction action="#{usuariosBean.inicializar}" />
 	</f:metadata>
 
-	<ui:define name="title">Cadastro Usuarios</ui:define>
+	<ui:define name="title">Cadastro Condôminos</ui:define>
 	<ui:define name="body">
-<adm:breadcrumb title="Cadastro Usuarios" />
+<adm:breadcrumb title="Cadastro Condôminos" />
 		<h:form id="frm" styleClass="form-principal">
 		
 			<p:growl showDetail="true" life="3000" severity="info">
@@ -45,10 +45,6 @@
 						process="@this" update="@form"
 						rendered="#{not usuariosBean.isNew()}" icon="fa fa-trash"
 						styleClass="btn-danger">
-						<f:setPropertyActionListener value="true"
-							target="#{facesContext.externalContext.flash.keepMessages}" />
-						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-							message="Tem certeza que deseja excluir o usuario" />
 					</p:commandButton>
 
 					<p:spacer width="5" />
@@ -64,24 +60,24 @@
 
 					<div id="campos" class="ui-fluid">
 
-						<p:panelGrid columns="2" layout="grid" style="margin-top: 20px"
+						<p:panelGrid columns="2" layout="grid" style="margin-top: 10px"
 							id="usuarios-tipos" columnClasses="ui-grid-col-2, ui-grid-col-4">
 
-							<h1>Tipo de Usuario</h1>
+							 <h3 class="card-title">Tipo de Usuário</h3>
 							<p:outputLabel />
 
 							<p:selectBooleanCheckbox id="morador"
-								value="#{usuariosBean.morador}" itemLabel="Morador"
+								value="#{usuariosBean.morador}" itemLabel="Condômino"
 								required="true">
 								<p:ajax process="@this" update="usuarios-tipos"
 									listener="#{usuariosBean.mostarCampos}" />
 							</p:selectBooleanCheckbox>
 
 							<p:selectBooleanCheckbox id="sindico"
-								value="#{usuariosBean.sindico}" itemLabel="Sindico" />
+								value="#{usuariosBean.sindico}" itemLabel="Síndico" />
 
 							<p:row id="camposMoradia" rendered="#{usuariosBean.ativar}">
-								<p:outputLabel value="Unidade De Moradia" for="unidadeMoradia" />
+								<p:outputLabel value="Unidade habitacional" for="unidadeMoradia" />
 								<p:inputMask mask="999" id="unidadeMoradia"
 									value="#{usuariosBean.usuario.moradia.unidade}" />
 							</p:row>
@@ -91,10 +87,10 @@
 						<p:panelGrid columns="2" layout="grid" style="margin-top: 20px"
 							id="usuarios-table" columnClasses="ui-grid-col-2, ui-grid-col-4">
 
-							<p:outputLabel value="Status Usuario" />
+							<p:outputLabel value="Status Usuário" />
 							<p:outputLabel value="#{usuariosBean.usuario.statusUsuario}" />
 
-							<p:outputLabel value="Codigo" for="codigo" />
+							<p:outputLabel value="Código" for="codigo" />
 							<p:outputLabel id="codigo" readonly="true"
 								value="#{usuariosBean.usuario.codigo}" />
 
@@ -111,10 +107,6 @@
 								value="#{usuariosBean.usuario.email}">
 								<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
 							</p:inputText>
-
-							<p:outputLabel value="Usermane" for="username" />
-							<p:inputText id="username" required="true"
-								value="#{usuariosBean.usuario.username}" />
 
 							<p:outputLabel value="Senha" for="senha" />
 							<p:password id="senha" required="true"

@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -38,9 +37,6 @@ public class Usuario implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoUsuario tipoUsuario;
-
-	@NotEmpty
-	private String username;
 
 	@CPF
 	private String cpf;
@@ -70,11 +66,10 @@ public class Usuario implements Serializable {
 	@Column(name = "permissao")
 	private Permissao permissao;
 
-	public Usuario(Long codigo, TipoUsuario tipoUsuario, @NotEmpty String username, @CPF String cpf,
+	public Usuario(Long codigo, TipoUsuario tipoUsuario, @CPF String cpf,
 			@Email String email, String password, @NotNull StatusCadastro statusUsuario) {
 		this.codigo = codigo;
 		this.tipoUsuario = tipoUsuario;
-		this.username = username;
 		this.cpf = cpf;
 		this.email = email;
 		this.password = password;
@@ -131,14 +126,6 @@ public class Usuario implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {

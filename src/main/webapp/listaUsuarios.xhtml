@@ -11,9 +11,9 @@
 		<f:viewAction action="#{listaUsuariosBean.consultar}" />
 	</f:metadata>
 
-	<ui:define name="title">Usuarios</ui:define>
+	<ui:define name="title">Condôminos</ui:define>
 	<ui:define name="body">
-		<adm:breadcrumb title="Usuarios" />
+		<adm:breadcrumb title="Condôminos" />
 		<h:form id="frm" styleClass="form-principal">
 
 			<p:growl showDetail="true" life="3000" severity="info">
@@ -34,7 +34,7 @@
 
 					<p:spacer width="5" />
 
-					<p:button value="Novo usuário" immediate="true"
+					<p:button value="Novo Condômino" immediate="true"
 						styleClass="btn-primary" outcome="/cadastroUsuario"
 						rendered="#{homeBean.reserva.usuario.statusUsuario == 'ATIVO'}"
 						process="@this" icon="fa fas fa-plus-circle" />
@@ -65,10 +65,10 @@
 					</p:column>
 
 					<p:column headerText="Nome" sortBy="#{usuario.nome}">
-						<h:outputText value="#{usuario.nome}" />
+						<h:outputText value="#{usuario.nome}"  />
 					</p:column>
 
-					<p:column headerText="Email" sortBy="#{usuario.email}">
+					<p:column headerText="E-mail" sortBy="#{usuario.email}">
 						<h:outputText value="#{usuario.email}" />
 					</p:column>
 
