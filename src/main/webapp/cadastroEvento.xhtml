@@ -53,7 +53,7 @@
 
 					<p:spacer width="5" />
 
-					<p:commandButton value="Voltar" immediate="true" 
+					<p:commandButton value="Voltar" immediate="true"
 						styleClass="btn-default" action="/index?faces-redirect=true"
 						process="@this" icon="fa fa-reply" />
 				</div>
@@ -64,18 +64,42 @@
 
 				<p:fieldset class="grupo-geral">
 
-					<h:panelGrid columns="2" styleClass="grid-titulo-pesquisa">
-						<div class="barra-vertical"></div>
-						<h:outputLabel
-							value="#{cadastroEventoBean.editando ? 'Edição de Evento': 'Novo Evento'}"
-							styleClass="titulo-pesquisa"></h:outputLabel>
-					</h:panelGrid>
-
 					<div id="campos" class="ui-fluid">
 
 						<p:panelGrid columns="2" layout="grid" style="margin-top: 20px"
 							styleClass="semBorda" id="usuarios-tipos"
 							columnClasses="ui-grid-col-2, ui-grid-col-4">
+
+					
+							<p:outputLabel value="Status Evento : " for="statusEvento" />
+							<p:selectOneMenu id="statusEvento" required="true"
+							 rendered="#{cadastroEventoBean.sistema.usuario.sindico}"
+							 requiredMessage="Necessario Tipo Evento"
+								value="#{cadastroEventoBean.reserva.statusReserva}">
+								<f:selectItem itemLabel="Selecione ..." noSelectionOption="true" />
+								<f:selectItems var="statusEvento"
+									value="#{cadastroEventoBean.statusReserva}"
+									itemLabel="#{statusEvento.descricao}"
+									itemValue="#{statusEvento}" />
+								<p:ajax event="change" update="frm" process="@this" />
+							</p:selectOneMenu>
+							
+							<p:inputText readonly="true"
+							 rendered="#{!cadastroEventoBean.sistema.usuario.sindico}"
+							 value="#{cadastroEventoBean.reserva.statusReserva.descricao}" />
+ 
+
+							<p:row id="descricaoOutputStatusEvento"
+								rendered="#{cadastroEventoBean.reserva.statusReserva == 'INDEFERIDO'}">
+								<p:outputLabel value="Status do Evento :" />
+							</p:row>
+							<p:row id="descricaoInputTextStatusEvent"
+								rendered="#{cadastroEventoBean.reserva.statusReserva == 'INDEFERIDO'}">
+								<p:inputTextarea rows="6" cols="40" readonly="#{!cadastroEventoBean.sistema.usuario.sindico}"
+									value="#{cadastroEventoBean.reserva.motivoStatusReserva}">
+									<p:ajax event="change" update="frm" process="@this" />
+								</p:inputTextarea>
+							</p:row>
 
 							<p:outputLabel value="Nome do Usuario : " />
 							<p:inputText value="#{cadastroEventoBean.reserva.usuario.nome}"

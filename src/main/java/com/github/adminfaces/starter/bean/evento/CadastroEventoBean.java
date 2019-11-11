@@ -15,11 +15,13 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.enums.StatusReserva;
 import com.github.adminfaces.starter.model.enums.TipoEvento;
 import com.github.adminfaces.starter.security.Seguranca;
+import com.github.adminfaces.starter.security.model.UsuarioSistema;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.util.FacesUtil;
 import com.github.adminfaces.starter.util.NegocioException;
@@ -41,11 +43,14 @@ public class CadastroEventoBean implements Serializable {
 	private Seguranca seguranca;
 
 	private Date hoje;
-
+	private UsuarioSistema sistema;
 	private Reserva reserva;
 
 	@PostConstruct
 	public void inicializar() {
+		if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+			setSistema((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		}
 		long aux = new Date().getTime() + RestricaoHorario.getRESTRICAO();
 		Date tesDate = new Date();
 		tesDate.setTime(aux);
@@ -81,6 +86,7 @@ public class CadastroEventoBean implements Serializable {
 	public void clear() {
 		inicializar();
 	}
+	
 	
 	public void novoEvento() {
 		try {
@@ -137,6 +143,10 @@ public class CadastroEventoBean implements Serializable {
 	public TipoEvento[] getTipoEvento() {
 		return TipoEvento.values();
 	}
+	
+	public StatusReserva[] getStatusReserva() {
+		return StatusReserva.values();
+	}
 
 	public boolean isEditando() {
 		return reserva != null;
@@ -156,6 +166,14 @@ public class CadastroEventoBean implements Serializable {
 
 	public void setHoje(Date hoje) {
 		this.hoje = hoje;
+	}
+
+	public UsuarioSistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(UsuarioSistema sistema) {
+		this.sistema = sistema;
 	}
 
 }

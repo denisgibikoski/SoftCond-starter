@@ -56,6 +56,9 @@ public class Reserva  implements Serializable {
 	@Column(name = "status_reserva", nullable = false)
 	private StatusReserva statusReserva = StatusReserva.PEDENTE;
 	
+	@Length(max = 1024)
+	private String motivoStatusReserva;
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_evento", nullable = false)
@@ -159,5 +162,13 @@ public class Reserva  implements Serializable {
 	public void setQuantidadePessoal(Integer quantidadePessoal) {
 		this.quantidadePessoal = quantidadePessoal;
 	}
-		
+
+	public String getMotivoStatusReserva() {
+		return motivoStatusReserva;
+	}
+
+	public void setMotivoStatusReserva(String motivoStatusReserva) {
+		this.motivoStatusReserva = motivoStatusReserva;
+	}
+			
 }

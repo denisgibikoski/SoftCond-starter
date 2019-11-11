@@ -2,16 +2,17 @@ package com.github.adminfaces.starter.bean.evento;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.enums.StatusReserva;
 import com.github.adminfaces.starter.security.model.UsuarioSistema;
-import com.github.adminfaces.starter.service.EmailService;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.util.FacesUtil;
 
@@ -24,8 +25,6 @@ public class ListaEventosBean implements Serializable {
 	@Autowired
 	private ReservaService service;
 
-	@Autowired
-	private EmailService emailService;
 	private UsuarioSistema usuarioSistema;
 	private List<Reserva> todosEventos;
 
@@ -48,21 +47,6 @@ public class ListaEventosBean implements Serializable {
 			FacesUtil.addErrorMessage(e.getMessage());
 		}
 		
-	}
-
-	public void salvarEvento(Reserva reserva) {
-		try {
-			service.salvar(reserva);
-			emailService.enviar(reserva);
-			FacesUtil.addInfoMessage("Reserva Atualizada com sucesso!!!");
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesUtil.addFatalMessage(e.getMessage());
-		}
-	}
-
-	public StatusReserva[] getStatusReserva() {
-		return StatusReserva.values();
 	}
 
 	public void consultar(UsuarioSistema usuarioSistema) {

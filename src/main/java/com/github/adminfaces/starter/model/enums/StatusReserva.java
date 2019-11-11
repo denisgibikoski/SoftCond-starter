@@ -5,6 +5,7 @@ public enum StatusReserva {
 	RESERVADO("Reservado"),
 	PEDENTE("Pedente"), 
 	CONCLUIDO("Concluido"),
+	INDEFERIDO("indeferido"),
 	EXCUIDO("Excluido");
 	
 	private String descricao;
