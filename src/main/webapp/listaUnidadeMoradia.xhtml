@@ -37,6 +37,7 @@
 
 						<p:commandButton icon="fa far fa-trash" title="Excluir"
 							class="btn btn-danger" update=":frm:unidades-table "
+							disabled="#{unidade.statusUnidadeMoradia == 'EXCUIDO'}"
 							actionListener="#{listaMoradiaBean.excluir(unidade)}">
 						</p:commandButton>
 
