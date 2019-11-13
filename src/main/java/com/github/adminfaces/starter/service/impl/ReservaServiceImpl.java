@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.Usuario;
 import com.github.adminfaces.starter.model.enums.StatusCadastro;
+import com.github.adminfaces.starter.model.enums.TipoEvento;
 import com.github.adminfaces.starter.repository.ReservaRepository;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.service.UsuarioService;
@@ -44,8 +45,16 @@ public class ReservaServiceImpl implements ReservaService {
 		if (reserva.getCodigo() == null) {
 			verificaHorarioReserva(reserva);
 		}
+		verificaOpcaoOutro(reserva);
 		reserva.setUsuario(usuario);
 		reservaRepository.saveAndFlush(reserva);
+	}
+
+	private void verificaOpcaoOutro(Reserva reserva) {
+		if (reserva.getTipoevento().equals(TipoEvento.OUTROS) && reserva.getDescricao().isEmpty()) {
+			throw new NegocioException("Quando o tipo de evento e 'Outro' \n Deverá comter a descrição do evento!!");
+		}
+		
 	}
 
 	private void verificaHorarioReserva(Reserva reserva) {
