@@ -20,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.enums.StatusReserva;
-import com.github.adminfaces.starter.security.Seguranca;
 import com.github.adminfaces.starter.security.model.UsuarioSistema;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.util.FacesUtil;
@@ -31,9 +30,6 @@ import com.github.adminfaces.starter.util.ScheduleUtil;
 public class HomeBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Autowired(required = false)
-	private Seguranca seguranca;
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -81,7 +77,7 @@ public class HomeBean implements Serializable {
 	public void onDateSelect(SelectEvent selectEvent) {
 		reserva = new Reserva();
 		event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-		reserva.setUsuario(seguranca.getUsuarioLogado().getUsuario());
+		reserva.setUsuario(sistema.getUsuario());
 		reserva.setDataInicial(event.getStartDate());
 		reserva.setDataFinal(event.getEndDate());
 	}
@@ -147,7 +143,7 @@ public class HomeBean implements Serializable {
 
 	public void redicionaCadastroUsuario() {
 		FacesUtil.redirecionarPagina(
-				"cadastroUsuario.xhtml?usuario=" + seguranca.getUsuarioLogado().getUsuario().getCodigo());
+				"cadastroUsuario.xhtml?usuario=" + sistema.getUsuario().getCodigo());
 	}
 
 	public StatusReserva[] getstatusReservas() {

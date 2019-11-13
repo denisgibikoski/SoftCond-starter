@@ -20,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.github.adminfaces.starter.model.Reserva;
 import com.github.adminfaces.starter.model.enums.StatusReserva;
 import com.github.adminfaces.starter.model.enums.TipoEvento;
-import com.github.adminfaces.starter.security.Seguranca;
 import com.github.adminfaces.starter.security.model.UsuarioSistema;
 import com.github.adminfaces.starter.service.ReservaService;
 import com.github.adminfaces.starter.util.FacesUtil;
@@ -38,9 +37,6 @@ public class CadastroEventoBean implements Serializable {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
-
-	@Autowired
-	private Seguranca seguranca;
 
 	private Date hoje;
 	private UsuarioSistema sistema;
@@ -136,7 +132,7 @@ public class CadastroEventoBean implements Serializable {
 	private void limpar() {		
 		reserva = new Reserva();
 		if (FacesContext.getCurrentInstance() != null) {
-			reserva.setUsuario(seguranca.getUsuarioLogado().getUsuario());
+			reserva.setUsuario(sistema.getUsuario());
 		}
 	}
 
