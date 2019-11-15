@@ -135,15 +135,15 @@
 							</p:row>
 
 							<p:outputLabel value="Data Inicial : " for="dataIni" />
-							<p:datePicker id="dataIni"
-								requiredMessage="Necessario ter Data Inicial" showTime="true"
+							<p:calendar id="dataIni"
+								requiredMessage="Necessario ter Data Inicial" 
 								value="#{cadastroEventoBean.reserva.dataInicial}"
 								required="true" navigator="true" label="Data inicial"
 								pattern="dd/MM/yyyy HH:mm" mindate="#{cadastroEventoBean.hoje}"
 								mask="true" locale="pt">
 
 								<p:ajax event="dateSelect" update="dataFin" process="@this" listener="#{cadastroEventoBean.atualizaDataFin}" />
-							</p:datePicker>
+							</p:calendar>
 
 							<p:outputLabel value="Data Final : " for="dataFin" />
 							<p:calendar id="dataFin" required="true"
