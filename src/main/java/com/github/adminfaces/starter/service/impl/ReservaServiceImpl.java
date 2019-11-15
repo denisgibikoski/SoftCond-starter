@@ -43,7 +43,7 @@ public class ReservaServiceImpl implements ReservaService {
 		Usuario usuario = usuarioService.porId(reserva.getUsuario().getCodigo());
 		verificaUsuarioAtivo(usuario);
 		if (reserva.getCodigo() == null) {
-			verificaHorarioReserva(reserva);
+			RestricaoHorario.verificaHorarioReserva(reserva ,reservaRepository.findAll() );
 		}
 		verificaOpcaoOutro(reserva);
 		reserva.setUsuario(usuario);
@@ -55,26 +55,6 @@ public class ReservaServiceImpl implements ReservaService {
 			throw new NegocioException("Quando o tipo de evento e 'Outro' \n Deverá comter a descrição do evento!!");
 		}
 		
-	}
-
-	private void verificaHorarioReserva(Reserva reserva) {
-
-		Long iniRESERVA = reserva.getDataInicial().getTime();
-		Long fimRESERVA = reserva.getDataFinal().getTime();
-
-		List<Reserva> reservas = reservaRepository.findAll();
-		for (Reserva reserva2 : reservas) {
-
-			Long iniRESERVA2 = reserva2.getDataInicial().getTime();
-			Long fimRESERVA2 = reserva2.getDataFinal().getTime();
-
-			if (iniRESERVA >= iniRESERVA2 && iniRESERVA <= fimRESERVA2) {
-				throw new NegocioException("Ja Existe Reserva neste peiodo");
-			}
-			if (fimRESERVA >= iniRESERVA2 && fimRESERVA <= fimRESERVA2) {
-				throw new NegocioException("Ja Existe Reserva neste peiodo");
-			}
-		}
 	}
 
 	private void verificaUsuarioAtivo(Usuario usuario) {

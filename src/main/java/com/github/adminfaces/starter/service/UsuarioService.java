@@ -23,4 +23,6 @@ public interface UsuarioService {
 
 	void redefinirSenha(Usuario usuario);
 
+	boolean existeSindico();
+
 }

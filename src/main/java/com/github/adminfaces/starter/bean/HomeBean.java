@@ -106,7 +106,7 @@ public class HomeBean implements Serializable {
 	public void removerEvento(ActionEvent actionEvent) {
 		try {
 			service.remover(reserva);
-			reserva.setStatusReserva(StatusReserva.EXCUIDO);
+			reserva.setStatusReserva(StatusReserva.EXCLUIDO);
 			publisher.publishEvent(reserva);
 			inicializar();
 			FacesUtil.addInfoMessage("Reserva Excluida com sucesso!!!");

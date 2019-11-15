@@ -3,10 +3,10 @@ package com.github.adminfaces.starter.model.enums;
 public enum StatusReserva {
 	
 	RESERVADO("Reservado"),
-	PEDENTE("Pedente"), 
+	PEDENTE("Pendente"), 
 	CONCLUIDO("Concluido"),
-	INDEFERIDO("indeferido"),
-	EXCUIDO("Excluido");
+	INDEFERIDO("Indeferido"),
+	EXCLUIDO("Excluido");
 	
 	private String descricao;
 

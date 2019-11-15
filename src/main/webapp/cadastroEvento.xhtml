@@ -70,11 +70,11 @@
 							styleClass="semBorda" id="usuarios-tipos"
 							columnClasses="ui-grid-col-2, ui-grid-col-4">
 
-					
+
 							<p:outputLabel value="Status Evento : " for="statusEvento" />
 							<p:selectOneMenu id="statusEvento" required="true"
-							 rendered="#{cadastroEventoBean.sistema.usuario.sindico}"
-							 requiredMessage="Necessario Tipo Evento"
+								rendered="#{cadastroEventoBean.sistema.usuario.sindico}"
+								requiredMessage="Necessario Tipo Evento"
 								value="#{cadastroEventoBean.reserva.statusReserva}">
 								<f:selectItem itemLabel="Selecione ..." noSelectionOption="true" />
 								<f:selectItems var="statusEvento"
@@ -83,11 +83,11 @@
 									itemValue="#{statusEvento}" />
 								<p:ajax event="change" update="frm" process="@this" />
 							</p:selectOneMenu>
-							
+
 							<p:inputText readonly="true"
-							 rendered="#{!cadastroEventoBean.sistema.usuario.sindico}"
-							 value="#{cadastroEventoBean.reserva.statusReserva.descricao}" />
- 
+								rendered="#{!cadastroEventoBean.sistema.usuario.sindico}"
+								value="#{cadastroEventoBean.reserva.statusReserva.descricao}" />
+
 
 							<p:row id="descricaoOutputStatusEvento"
 								rendered="#{cadastroEventoBean.reserva.statusReserva == 'INDEFERIDO'}">
@@ -95,7 +95,8 @@
 							</p:row>
 							<p:row id="descricaoInputTextStatusEvent"
 								rendered="#{cadastroEventoBean.reserva.statusReserva == 'INDEFERIDO'}">
-								<p:inputTextarea rows="6" cols="40" readonly="#{!cadastroEventoBean.sistema.usuario.sindico}"
+								<p:inputTextarea rows="6" cols="40"
+									readonly="#{!cadastroEventoBean.sistema.usuario.sindico}"
 									value="#{cadastroEventoBean.reserva.motivoStatusReserva}">
 									<p:ajax event="change" update="frm" process="@this" />
 								</p:inputTextarea>
@@ -134,15 +135,15 @@
 							</p:row>
 
 							<p:outputLabel value="Data Inicial : " for="dataIni" />
-							<p:calendar id="dataIni"
-								requiredMessage="Necessario ter Data Inicial"
+							<p:datePicker id="dataIni"
+								requiredMessage="Necessario ter Data Inicial" showTime="true"
 								value="#{cadastroEventoBean.reserva.dataInicial}"
 								required="true" navigator="true" label="Data inicial"
 								pattern="dd/MM/yyyy HH:mm" mindate="#{cadastroEventoBean.hoje}"
 								mask="true" locale="pt">
 
-								<p:ajax event="dateSelect" update="dataFin" process="@this" />
-							</p:calendar>
+								<p:ajax event="dateSelect" update="dataFin" process="@this" listener="#{cadastroEventoBean.atualizaDataFin}" />
+							</p:datePicker>
 
 							<p:outputLabel value="Data Final : " for="dataFin" />
 							<p:calendar id="dataFin" required="true"
@@ -166,12 +167,11 @@
 							<p:row>
 
 								<p>
-									Eu
-									<p:commandLink value="aceito os termos" ajax="false"
-										immediate="true" class="badge badge-dark" >
+									Eu aceito o 
+									<p:commandLink value="termo" ajax="false" immediate="true"
+										class="btn-link">
 										<p:fileDownload value="#{cadastroEventoBean.termoDeUso()}" />
-									</p:commandLink>
-									e condições:
+									</p:commandLink> e condições:
 								</p>
 
 							</p:row>
@@ -185,7 +185,7 @@
 								</p:signature>
 
 								<div style="margin: 20px 0">
-									<p:commandButton value="Clear"
+									<p:commandButton value="Limpar"
 										disabled="#{cadastroEventoBean.reserva.codigo != null}"
 										type="button" icon="fa fa-eraser"
 										style="width: 100px; height:40px; text-align: center"

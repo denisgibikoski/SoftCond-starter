@@ -16,6 +16,8 @@ public interface EmailService {
 	void enviarSindico(Reserva reserva);
 
 	void enviarMoradia(UnidadeMoradia moradia);
+	
+	void enviarMoradiaSindico(UnidadeMoradia moradia);
 
 	void enviarSenhaNova(Usuario usuario, String senha);
 

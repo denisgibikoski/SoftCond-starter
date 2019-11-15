@@ -13,6 +13,7 @@ import com.github.adminfaces.starter.model.UnidadeMoradia;
 import com.github.adminfaces.starter.model.enums.StatusCadastro;
 import com.github.adminfaces.starter.service.UnidadeMoradiaService;
 import com.github.adminfaces.starter.util.FacesUtil;
+import com.github.adminfaces.starter.util.ScheduleUtil;
 
 
 @Named
@@ -31,6 +32,10 @@ public class UnidadeMoradiaBean implements Serializable {
 
 	private List<UnidadeMoradia> listUnidadeMoradia = new ArrayList<UnidadeMoradia>();
 	private boolean ativarUnidade = false;
+	
+	public String getStyleClass(UnidadeMoradia moradia) {
+		return ScheduleUtil.getClass(moradia.getStatusUnidadeMoradia());	
+	}
 
 	@PostConstruct
 	public void inicializar() {

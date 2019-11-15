@@ -66,6 +66,18 @@ public class UsuariosBean implements Serializable {
 		return usuario.getCodigo() == null;
 	}
 
+	public boolean existeSindico() {
+		if (usuarioService.existeSindico()) {
+			if (!usuario.isSindico()) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
+
 	public void limpar() {
 		sindico = false;
 		ativar = false;

@@ -2,33 +2,42 @@
 
 
 .event-default {
-	background-color: rgba(3, 169, 244, 0.7) !important;
+	background-color: rgba(106,90,205, 0.7) !important;
 	color: White !important;
 }
 
 .event-CADASTRO {
-	background-color: rgba(76, 175, 80, 0.7) !important;
+	background-color: rgba(131,111,255, 0.7) !important;
 	color: White !important;
 }
 
 .event-PEDENTE {
-	background-color: rgba(156, 39, 176, 0.7)  !important;
+	background-color: rgba(105,89,205, 0.7)  !important;
 	color: White !important;
 }
 
 .event-RESERVADO {
-	background-color: rgba(233, 30, 99, 0.7) !important;
+	background-color: rgba(72,61,139, 0.7) !important;
 	color: White !important;
 }
 
 .event-CONCLUIDO {
-	background-color: rgba(0, 150, 136, 0.7) !important;
+	background-color: rgba(25,25,112, 0.7) !important;
+	color: White !important;
+}
+
+.event-INDEFERIDO {
+	background-color: rgba(0,0,128, 0.7) !important;
 	color: White !important;
 }
 
 .event-EXCUIDO {
 	background-color: rgba(96, 125, 139, 0.7) !important;
 	color: White !important;
+}
+
+a.btn-link{
+	 color: blue !important;
 }
 
 

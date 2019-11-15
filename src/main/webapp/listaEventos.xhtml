@@ -9,9 +9,9 @@
 		<f:viewAction action="#{listaEventosBean.inicializar}" />
 	</f:metadata>
 
-	<ui:define name="title">Eventos</ui:define>
+	<ui:define name="title">Reservas</ui:define>
 	<ui:define name="body">
-		<adm:breadcrumb title="Eventos" />
+		<adm:breadcrumb title="Reservas" />
 		<h:form id="frm" styleClass="form-principal">
 
 			<p:growl showDetail="true" life="3000" severity="info">
@@ -33,7 +33,7 @@
 
 					<p:spacer width="5" />
 
-					<p:commandButton value="Novo Evento" immediate="true"
+					<p:commandButton value="Nova Reserva" immediate="true"
 						styleClass="btn-primary"
 						rendered="#{homeBean.reserva.usuario.moradia.statusUnidadeMoradia == 'ATIVO'}"
 						action="#{homeBean.novoEvento}" process="@this"
@@ -52,7 +52,7 @@
 						exportable="false" headerText="Opções">
 
 						<p:button icon="fa far fa-pencil" title="Editar"
-						disabled="#{reserva.statusReserva == 'CONCLUIDO'}"
+							disabled="#{reserva.statusReserva == 'CONCLUIDO'}"
 							class="btn btn-info" outcome="cadastroEvento">
 							<f:param name="reserva" value="#{reserva.codigo}" />
 						</p:button>
@@ -96,10 +96,34 @@
 						<h:outputText value="#{reserva.tipoevento.descricao}" />
 					</p:column>
 
-					<p:column headerText="Status"
+					<p:column headerText="Status" 
 						style="text-align: center; width: 100px" exportable="false">
-						<p:inputText readonly="true"
+
+						<h:outputText 
+							rendered="#{reserva.statusReserva.descricao == 'Reservado'}"
+							styleClass="event-RESERVADO"
 							value="#{reserva.statusReserva.descricao}" />
+
+						<h:outputText 
+							rendered="#{reserva.statusReserva.descricao == 'Pendente'}"
+							styleClass="event-PEDENTE"
+							value="#{reserva.statusReserva.descricao}" />
+
+						<h:outputText
+							rendered="#{reserva.statusReserva.descricao == 'Concluido'}"
+							styleClass="event-CONCLUIDO"
+							value="#{reserva.statusReserva.descricao}" />
+
+						<h:outputText
+							rendered="#{reserva.statusReserva.descricao == 'Indeferido'}"
+							styleClass="event-INDEFERIDO"
+							value="#{reserva.statusReserva.descricao}" />
+
+						<h:outputText
+							rendered="#{reserva.statusReserva.descricao == 'Excluido'}"
+							styleClass="event-EXCUIDO"
+							value="#{reserva.statusReserva.descricao}" />
+
 					</p:column>
 
 					<f:facet name="footer">

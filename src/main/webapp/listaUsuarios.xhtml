@@ -22,7 +22,7 @@
 			<p:growl showDetail="true" sticky="true" severity="warn,error,fatal">
 				<p:autoUpdate />
 			</p:growl>
-			
+
 			<p:messages id="messages" autoUpdate="true" closable="true" />
 
 			<p:fieldset class="grupo-geral">
@@ -64,16 +64,34 @@
 
 					</p:column>
 
-					<p:column headerText="Nome" sortBy="#{usuario.nome}">
-						<h:outputText value="#{usuario.nome}"  />
+					<p:column headerText="Nome" style="text-align: center"
+						sortBy="#{usuario.nome}">
+						<h:outputText value="#{usuario.nome}" />
 					</p:column>
 
-					<p:column headerText="E-mail" sortBy="#{usuario.email}">
+					<p:column headerText="E-mail" style="text-align: center"
+						sortBy="#{usuario.email}">
 						<h:outputText value="#{usuario.email}" />
 					</p:column>
 
-					<p:column headerText="Status" sortBy="#{usuario.statusUsuario}">
-						<h:outputText value="#{usuario.statusUsuario}" />
+					<p:column headerText="Status" style="text-align: center"
+						sortBy="#{usuario.statusUsuario}">
+						<h:outputText
+							rendered="#{usuario.statusUsuario.descricao == 'Ativo'}"
+							styleClass="event-RESERVADO"
+							value="#{usuario.statusUsuario.descricao}" />
+						<h:outputText
+							rendered="#{usuario.statusUsuario.descricao == 'Inativo'}"
+							styleClass="event-PEDENTE"
+							value="#{usuario.statusUsuario.descricao}" />
+						<h:outputText
+							rendered="#{usuario.statusUsuario.descricao == 'Pendente'}"
+							styleClass="event-CONCLUIDO"
+							value="#{usuario.statusUsuario.descricao}" />
+						<h:outputText
+							rendered="#{usuario.statusUsuario.descricao == 'Excluido'}"
+							styleClass="event-INDEFERIDO"
+							value="#{usuario.statusUsuario.descricao}" />
 					</p:column>
 
 					<f:facet name="footer">

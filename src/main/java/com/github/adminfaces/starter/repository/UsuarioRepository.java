@@ -17,5 +17,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	Usuario findByEmail(String email);
 
 	Usuario findBySindicoTrue();
-	
+
+	@Query(" select count(u)>0 FROM Usuario u WHERE u.permissao = 'SINDICO'")
+	boolean findBySindico();
+		
 }

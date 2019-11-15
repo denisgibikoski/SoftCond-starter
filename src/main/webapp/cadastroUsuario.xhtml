@@ -73,7 +73,8 @@
 									listener="#{usuariosBean.mostarCampos}" />
 							</p:selectBooleanCheckbox>
 
-							<p:selectBooleanCheckbox id="sindico"
+
+							<p:selectBooleanCheckbox id="sindico" rendered="#{usuariosBean.existeSindico()}"
 								value="#{usuariosBean.sindico}" itemLabel="Síndico" />
 
 							<p:row id="camposMoradia" rendered="#{usuariosBean.ativar}">

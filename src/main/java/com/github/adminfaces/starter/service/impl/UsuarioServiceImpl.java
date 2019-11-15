@@ -81,4 +81,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioRepositorio.saveAndFlush(usuario);
 	}
 
+	@Override
+	public boolean existeSindico() {
+		return usuarioRepositorio.findBySindico();
+	}
+
 }

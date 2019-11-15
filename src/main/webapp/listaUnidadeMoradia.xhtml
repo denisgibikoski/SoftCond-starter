@@ -37,7 +37,7 @@
 
 						<p:commandButton icon="fa far fa-trash" title="Excluir"
 							class="btn btn-danger" update=":frm:unidades-table "
-							disabled="#{unidade.statusUnidadeMoradia == 'EXCUIDO'}"
+							disabled="#{unidade.statusUnidadeMoradia.descricao == 'Inativo'}"
 							actionListener="#{listaMoradiaBean.excluir(unidade)}">
 						</p:commandButton>
 
@@ -55,8 +55,11 @@
 
 					<p:column headerText="Status"
 						style="text-align: center; width: 100px" exportable="false">
-						<p:selectOneMenu id="car" value="#{unidade.statusUnidadeMoradia}">
-							<f:selectItems value="#{unidadeMoradiaBean.statusCadastros}" />
+						<p:selectOneMenu id="car" value="#{unidade.statusUnidadeMoradia}"
+							styleClass="#{unidadeMoradiaBean.getStyleClass(unidade)}">
+							<f:selectItems value="#{unidadeMoradiaBean.statusCadastros}"
+								var="status" itemValue="#{status}"
+								itemLabel="#{status.descricao}" />
 							<f:ajax event="change"
 								listener="#{unidadeMoradiaBean.salvarMoradia(unidade)}" />
 						</p:selectOneMenu>
