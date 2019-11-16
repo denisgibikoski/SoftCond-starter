@@ -37,23 +37,33 @@ public class RestricaoHorario implements Serializable {
 	}
 
 	public static void verificaHorarioReserva(Reserva reserva, List<Reserva> list) {
-		Long iniRESERVA = reserva.getDataInicial().getTime();
-		Long fimRESERVA = reserva.getDataFinal().getTime();
 
-		List<Reserva> reservas = list;
-		for (Reserva reserva2 : reservas) {
-
-			Long iniRESERVA2 = reserva2.getDataInicial().getTime();
-			Long fimRESERVA2 = reserva2.getDataFinal().getTime();
-
-			if (iniRESERVA >= iniRESERVA2 && iniRESERVA <= fimRESERVA2) {
-				throw new NegocioException("Ja Existe Reserva neste peiodo");
+		if (reserva.getCodigo() == null) {
+			Long iniRESERVA = reserva.getDataInicial().getTime();
+			Long fimRESERVA = reserva.getDataFinal().getTime();
+			
+			permite(reserva.getDataInicial());
+			
+			if (fimRESERVA <= iniRESERVA) {
+				throw new NegocioException("Data final e menor que data inicial !!");
 			}
-			if (fimRESERVA >= iniRESERVA2 && fimRESERVA <= fimRESERVA2) {
-				throw new NegocioException("Ja Existe Reserva neste peiodo");
+			
+			List<Reserva> reservas = list;
+			for (Reserva reserva2 : reservas) {
+
+				Long iniRESERVA2 = reserva2.getDataInicial().getTime();
+				Long fimRESERVA2 = reserva2.getDataFinal().getTime();
+
+				if (iniRESERVA >= iniRESERVA2 && iniRESERVA <= fimRESERVA2) {
+					throw new NegocioException("Ja Existe Reserva neste peiodo");
+				}
+				if (fimRESERVA >= iniRESERVA2 && fimRESERVA <= fimRESERVA2) {
+					throw new NegocioException("Ja Existe Reserva neste peiodo");
+				}
 			}
+
 		}
-		
+				
 	}
 
 

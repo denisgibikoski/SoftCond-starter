@@ -49,7 +49,7 @@ public class CadastroEventoBean implements Serializable {
 		}
 		long aux = new Date().getTime() + RestricaoHorario.getRESTRICAO();
 		Date tesDate = new Date();
-		tesDate.setTime(aux - 20);
+		tesDate.setTime(aux);
 		setHoje(tesDate);
 		
 		limpar();
@@ -64,11 +64,7 @@ public class CadastroEventoBean implements Serializable {
 			}
 		}
 	}
-	
-	public void atualizaDataFin() {
-		reserva.setDataFinal(reserva.getDataInicial());
-	}
-	
+		
 	public void removerEvento() {
 		try {
 			RestricaoHorario.permite(reserva.getDataFinal());
@@ -91,7 +87,6 @@ public class CadastroEventoBean implements Serializable {
 	public void novoEvento() {
 		try {
 			if (isTermoResposabilidade(reserva.getTermoDeUso())) {
-				RestricaoHorario.verificaHorarioReserva(reserva ,service.todos() );
 				service.salvar(reserva);
 				publisher.publishEvent(reserva);
 				FacesUtil.addInfoMessage("Evento " + reserva.getCodigo() + "  salvo !!");

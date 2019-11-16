@@ -136,13 +136,13 @@
 
 							<p:outputLabel value="Data Inicial : " for="dataIni" />
 							<p:calendar id="dataIni"
-								requiredMessage="Necessario ter Data Inicial" 
+								requiredMessage="Necessario ter Data Inicial"
 								value="#{cadastroEventoBean.reserva.dataInicial}"
 								required="true" navigator="true" label="Data inicial"
-								pattern="dd/MM/yyyy HH:mm" mindate="#{cadastroEventoBean.hoje}"
+								pattern="dd/MM/yyyy HH:mm" 
 								mask="true" locale="pt">
 
-								<p:ajax event="dateSelect" update="dataFin" process="@this" listener="#{cadastroEventoBean.atualizaDataFin}" />
+								<p:ajax event="dateSelect" update="dataFin" process="@this"	/>
 							</p:calendar>
 
 							<p:outputLabel value="Data Final : " for="dataFin" />
@@ -150,7 +150,6 @@
 								requiredMessage="Necessario ter Data Final"
 								value="#{cadastroEventoBean.reserva.dataFinal}" navigator="true"
 								mask="true" label="Data final"
-								mindate="#{cadastroEventoBean.reserva.dataInicial}"
 								pattern="dd/MM/yyyy HH:mm" locale="pt">
 
 								<p:ajax event="dateSelect" update="dataFin" process="@this" />
@@ -167,11 +166,12 @@
 							<p:row>
 
 								<p>
-									Eu aceito o 
+									Eu aceito o
 									<p:commandLink value="termo" ajax="false" immediate="true"
 										class="btn-link">
 										<p:fileDownload value="#{cadastroEventoBean.termoDeUso()}" />
-									</p:commandLink> e condições:
+									</p:commandLink>
+									e condições:
 								</p>
 
 							</p:row>
