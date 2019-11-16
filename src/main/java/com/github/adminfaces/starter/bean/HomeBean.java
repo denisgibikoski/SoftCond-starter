@@ -120,7 +120,7 @@ public class HomeBean implements Serializable {
 		if (reserva.getCodigo() != null) {
 			if (sistema.getUsuario().isSindico()) {
 				return true;
-			} else if (reserva.getStatusReserva() != StatusReserva.CONCLUIDO
+			} else if (reserva.getStatusReserva() != StatusReserva.CONCLUIDO || reserva.getStatusReserva() != StatusReserva.RESERVADO
 					&& reserva.getUsuario().getNome().equals(sistema.getUsuario().getNome())) {
 				return true;
 			}

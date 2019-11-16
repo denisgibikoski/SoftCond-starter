@@ -67,23 +67,23 @@
 
 					</p:column>
 
-					<p:column headerText="Nome"
+					<p:column headerText="Nome" sortBy="#{reserva.usuario.nome}"
 						style="text-align: center; width: 100px" exportable="false">
 						<h:outputText value="#{reserva.usuario.nome}" />
 					</p:column>
 
-					<p:column headerText="Unidade"
+					<p:column headerText="Unidade" sortBy="#{reserva.usuario.moradia.unidade}"
 						style="text-align: center; width: 50px" exportable="false">
 						<h:outputText value="#{reserva.usuario.moradia.unidade}" />
 					</p:column>
-					<p:column headerText="Data de Inicio"
+					<p:column headerText="Data de Inicio" sortBy="#{reserva.dataInicial}"
 						style="text-align: center; width: 50px" exportable="false">
 						<h:outputText value="#{reserva.dataInicial}">
 							<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Data Final"
+					<p:column headerText="Data Final" sortBy="#{reserva.dataFinal}"
 						style="text-align: center; width: 50px" exportable="false">
 						<h:outputText value="#{reserva.dataFinal}">
 							<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
@@ -91,12 +91,12 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Descrição"
+					<p:column headerText="Descrição" sortBy="#{reserva.tipoevento.descricao}"
 						style="text-align: center; width: 100px" exportable="false">
 						<h:outputText value="#{reserva.tipoevento.descricao}" />
 					</p:column>
 
-					<p:column headerText="Status" 
+					<p:column headerText="Status"  sortBy="#{reserva.statusReserva.descricao}"
 						style="text-align: center; width: 100px" exportable="false">
 
 						<h:outputText 

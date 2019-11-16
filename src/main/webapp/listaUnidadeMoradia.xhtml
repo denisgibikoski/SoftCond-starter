@@ -43,17 +43,17 @@
 
 					</p:column>
 
-					<p:column headerText="Unidade"
+					<p:column headerText="Unidade" sortBy="#{unidade.unidade}"
 						style="text-align: center; width: 100px" exportable="false">
 						<p:outputLabel value="#{unidade.unidade}" />
 					</p:column>
 
-					<p:column headerText="Morador"
+					<p:column headerText="Morador" sortBy="#{unidade.usuario.nome}"
 						style="text-align: center; width: 100px" exportable="false">
 						<p:outputLabel value="#{unidade.usuario.nome}" />
 					</p:column>
 
-					<p:column headerText="Status"
+					<p:column headerText="Status" sortBy="#{unidade.statusUnidadeMoradia}"
 						style="text-align: center; width: 100px" exportable="false">
 						<p:selectOneMenu id="car" value="#{unidade.statusUnidadeMoradia}"
 							styleClass="#{unidadeMoradiaBean.getStyleClass(unidade)}">
