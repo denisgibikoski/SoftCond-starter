@@ -49,7 +49,7 @@ public class HomeBean implements Serializable {
 			if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
 				sistema = (UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			}
-			
+
 			setHoje(new Date());
 			reservas = new DefaultScheduleModel();
 			reserva = new Reserva();
@@ -116,12 +116,25 @@ public class HomeBean implements Serializable {
 		}
 	}
 
+	public boolean disabledExcuir() {
+		switch (reserva.getStatusReserva()) {
+		case CONCLUIDO:
+			return true;
+		case INDEFERIDO:
+			return true;
+		default:
+			return false;
+		}
+
+	}
+
 	public boolean podeRemoverEvento() {
 		if (reserva.getCodigo() != null) {
 			if (sistema.getUsuario().isSindico()) {
 				return true;
-			} else if (reserva.getStatusReserva() != StatusReserva.CONCLUIDO || reserva.getStatusReserva() != StatusReserva.RESERVADO
-					&& reserva.getUsuario().getNome().equals(sistema.getUsuario().getNome())) {
+			} else if (reserva.getStatusReserva() != StatusReserva.CONCLUIDO
+					|| reserva.getStatusReserva() != StatusReserva.RESERVADO
+							&& reserva.getUsuario().getNome().equals(sistema.getUsuario().getNome())) {
 				return true;
 			}
 
@@ -142,8 +155,7 @@ public class HomeBean implements Serializable {
 	}
 
 	public void redicionaCadastroUsuario() {
-		FacesUtil.redirecionarPagina(
-				"cadastroUsuario.xhtml?usuario=" + sistema.getUsuario().getCodigo());
+		FacesUtil.redirecionarPagina("cadastroUsuario.xhtml?usuario=" + sistema.getUsuario().getCodigo());
 	}
 
 	public StatusReserva[] getstatusReservas() {
