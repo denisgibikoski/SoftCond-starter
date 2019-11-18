@@ -102,14 +102,6 @@
 							value="#{homeBean.reserva.assinatura}" guideline="true" />
 					</div>
 
-					<p:commandButton id="cancelarButton" value="Excluir"
-						actionListener="#{homeBean.removerEvento}"
-						rendered="#{homeBean.podeRemoverEvento()}" disabled="#{homeBean.disabledExcuir()}"
-						oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
-					</p:commandButton>
-
-
-
 				</p:panelGrid>
 			</p:dialog>
 		</h:form>

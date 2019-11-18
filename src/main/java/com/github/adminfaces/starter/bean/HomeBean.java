@@ -103,44 +103,7 @@ public class HomeBean implements Serializable {
 		}
 	}
 
-	public void removerEvento(ActionEvent actionEvent) {
-		try {
-			service.remover(reserva);
-			reserva.setStatusReserva(StatusReserva.EXCLUIDO);
-			publisher.publishEvent(reserva);
-			inicializar();
-			FacesUtil.addInfoMessage("Reserva Excluida com sucesso!!!");
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesUtil.addFatalMessage(e.getMessage());
-		}
-	}
-
-	public boolean disabledExcuir() {
-		switch (reserva.getStatusReserva()) {
-		case CONCLUIDO:
-			return true;
-		case INDEFERIDO:
-			return true;
-		default:
-			return false;
-		}
-
-	}
-
-	public boolean podeRemoverEvento() {
-		if (reserva.getCodigo() != null) {
-			if (sistema.getUsuario().isSindico()) {
-				return true;
-			} else if (reserva.getStatusReserva() != StatusReserva.CONCLUIDO
-					|| reserva.getStatusReserva() != StatusReserva.RESERVADO
-							&& reserva.getUsuario().getNome().equals(sistema.getUsuario().getNome())) {
-				return true;
-			}
-
-		}
-		return false;
-	}
+	
 
 	public boolean habilitarDescricao() {
 		if (reserva.getDescricao() == null) {
